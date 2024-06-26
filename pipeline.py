@@ -79,7 +79,7 @@ def pipeline1_static_extract(secret:EnvSecrets) -> pd.DataFrame:
         'User-Agent': secret.api1_user_agent,
         'From': secret.api1_user_id
     }
-    _json = requests.get(secret.api1_static, headers=_header).json()
+    _json = requests.get(secret.api1_static, headers=_header).json() # r.get().status_code
     _df:pd.DataFrame = pd.concat([pd.DataFrame.from_dict([item], orient='columns') for item in _json])
     _df.set_index('id', inplace=True)
     _df.sort_values('id', ascending=True, inplace=True)
