@@ -182,7 +182,7 @@ def pipeline1_static_load(secret:EnvSecrets, _df, database):
             column_definitions.append(f'{column_name} {sql_type}')
     create_table_sql = f'CREATE TABLE IF NOT EXISTS {secret.tname_static} ({", ".join(column_definitions)});'
     database.cursor.execute(create_table_sql)
-    _df = _df.replace({np.NaN: None})
+    _df = _df.replace({np.nan: None})
     query = f'SELECT {primary_key} FROM {secret.tname_static}'
     existing_data = pd.read_sql(query, database.connection)
     existing_set = set(existing_data[primary_key])
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS {secret.tname_dynamic} (
 );
 '''
     database.cursor.execute(create_table_sql)
-    _df = _df.replace({np.NaN: None})
+    _df = _df.replace({np.nan: None})
     composite_key_columns = ['item_id', 'price_timestamp']
     query = f'SELECT {", ".join(composite_key_columns)} FROM {secret.tname_dynamic}'
     existing_data = pd.read_sql(query, database.connection)
